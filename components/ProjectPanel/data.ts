@@ -1,11 +1,11 @@
 import mainProjectImage from "../../public/images/main_project.jpg";
 import kenzieBurguerImage from "../../public/images/kenzie_burguer.jpg";
-import onFlowImage from "../../public/images/onflow.jpg"
-import nuKenzieImage from "../../public/images/nukenzie.jpg"
-import kenzieHubImage from "../../public/images/kenziehub.jpg"
-import mdtImage from "../../public/images/mdt.jpg"
-import portfolioImage from "../../public/images/portfolio.jpg"
-import spsImage from "../../public/images/sps_api.jpg"
+import onFlowImage from "../../public/images/onflow.jpg";
+import nuKenzieImage from "../../public/images/nukenzie.jpg";
+import kenzieHubImage from "../../public/images/kenziehub.jpg";
+import mdtImage from "../../public/images/mdt.jpg";
+import portfolioImage from "../../public/images/portfolio.jpg";
+import spsImage from "../../public/images/sps_api.jpg";
 
 export const mainProject = {
   title: "🔥 colecionavel.digital",
@@ -13,8 +13,8 @@ export const mainProject = {
     "A colecionavel.digital é um projeto em construção que fornece a criação de coleções de NFTs via pix com facilitação de integração no Instagram. Sou responsável pelo desenvolvimento da aplicação e do respectivo contrato inteligente. Mais informações, como Whitepaper e Roadmap, se encontram no link.",
   image: mainProjectImage,
   links: {
-    github: "",
-    custom: "",
+    github: "https://github.com/orgs/NFT-No-Code/repositories",
+    custom: "https://lnk.bio/colecionavel.digital",
   },
 };
 
