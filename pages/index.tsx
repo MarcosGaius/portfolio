@@ -35,10 +35,13 @@ export default function Home() {
           name="description"
           content="Olá! Me chamo Marcos Gaius e sou desenvolvedor full-stack. Aqui você poderá conhecer tanto eu quanto meu trabalho melhor!"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta property="og:title" content="Marcos Gaius - Desenvolvedor FullStack"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:description" content="Olá! Me chamo Marcos Gaius e sou desenvolvedor full-stack. Aqui você poderá conhecer tanto eu quanto meu trabalho melhor!"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="Marcos Gaius - Desenvolvedor FullStack" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:description"
+          content="Olá! Me chamo Marcos Gaius e sou desenvolvedor full-stack. Aqui você poderá conhecer tanto eu quanto meu trabalho melhor!"
+        />
       </Head>
 
       <Header />
@@ -152,5 +155,4 @@ export default function Home() {
   );
 }
 
-//criar api email
 //i18n - add atributo lang

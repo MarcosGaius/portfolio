@@ -5,6 +5,11 @@ import { FieldValues } from "react-hook-form/dist/types";
 import CustomInput from "../CustomInput";
 import CustomTextArea from "../CustomTextArea";
 import SocialButton from "../SocialButton";
+import { ISendEmail } from "../../interfaces/email.interfaces";
+import { sendEmailService } from "../../services/api";
+import { AxiosError } from "axios";
+import { toast, UpdateOptions } from "react-toastify";
+import { useMemo, useState } from "react";
 
 interface IContactSectionProps {
   id: string;
@@ -15,10 +20,45 @@ export default function ContactSection({ id }: IContactSectionProps) {
     handleSubmit,
     register,
     formState: { errors, isSubmitted },
+    reset,
   } = useForm({ resolver: yupResolver(formValidator) });
 
-  const submitForm = (data: FieldValues) => {
-    console.log(data);
+  const [isRequesting, setIsRequesting] = useState(false);
+
+  const submitForm = async (data: FieldValues) => {
+    const formattedData: ISendEmail = {
+      fromEmail: data.email,
+      message: data.message,
+      senderName: data.name,
+    };
+
+    setIsRequesting(true);
+
+    const loadingToast = toast.loading("Enviando email...");
+    const emailRes = await sendEmailService(formattedData);
+
+    setIsRequesting(false);
+    toast.dismiss(loadingToast);
+
+    if (emailRes instanceof AxiosError) {
+      switch (emailRes.response?.status) {
+        case 400:
+          toast.error("Verifique os campos e tente novamente");
+          break;
+        case 500:
+          toast.error("Erro no servidor");
+          break;
+        default:
+          toast.error("Erro desconhecido (servidor)");
+      }
+      return;
+    } else if (emailRes instanceof Error) {
+      console.error(emailRes);
+      toast.error("Erro desconhecido");
+    }
+
+    toast.success("E-mail enviado com sucesso!");
+    reset();
   };
 
   return (
@@ -43,7 +83,12 @@ export default function ContactSection({ id }: IContactSectionProps) {
         />
         <button
           type="submit"
-          className="bg-gradient-to-r from-cyan-600 to-cyan-400 font-bold text-xl p-2 hover:brightness-110 transition-all duration-300 mt-2 text-dark-blue"
+          className={
+            isRequesting
+              ? "bg-slate-400 font-bold text-xl p-2 transition-all duration-300 mt-2 text-dark-blue"
+              : "bg-gradient-to-r from-cyan-600 to-cyan-400 font-bold text-xl p-2 hover:brightness-110 transition-all duration-300 mt-2 text-dark-blue"
+          }
+          disabled={isRequesting ? true : false}
         >
           Enviar mensagem
         </button>
