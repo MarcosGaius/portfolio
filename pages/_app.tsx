@@ -5,19 +5,19 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 const raleway = Raleway({
-  display: "auto",
+  display: "swap",
   weight: ["200", "300", "400", "600", "700", "900"],
   variable: "--font-raleway",
 });
 
 const oswald = Oswald({
-  display: "auto",
+  display: "swap",
   weight: ["200", "300", "400", "600", "700"],
   variable: "--font-oswald",
 });
 
 const titillium = Titillium_Web({
-  display: "auto",
+  display: "swap",
   weight: ["200", "300", "400", "600", "700", "900"],
   variable: "--font-titillium",
 });
