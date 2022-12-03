@@ -3,6 +3,9 @@ import type { AppProps } from "next/app";
 import { Raleway, Oswald, Titillium_Web } from "@next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import "../services/i18n";
+import { useRouter } from "next/router";
+import i18n from "../services/i18n";
 
 const raleway = Raleway({
   display: "swap",
@@ -23,6 +26,9 @@ const titillium = Titillium_Web({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { locale } = useRouter();
+  i18n.changeLanguage(locale);
+
   return (
     <div className={`${raleway.variable} ${oswald.variable} ${titillium.variable} font-sans`}>
       <Component {...pageProps} />

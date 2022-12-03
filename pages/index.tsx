@@ -12,10 +12,12 @@ import ProjectPanel from "../components/ProjectPanel";
 import TechList from "../components/TechList";
 import Text from "../components/Text";
 import Typewriter from "typewriter-effect";
+import { Trans, useTranslation } from "react-i18next";
 
 export default function Home() {
   const typewriteRef = useRef(null);
   const isIntersecting = useIntersectionObserver(typewriteRef);
+  const { t } = useTranslation();
 
   const fromRightAnimationVariant: Variants = {
     initial: { x: "-100%" },
@@ -30,18 +32,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Marcos Gaius: Desenvolvedor FullStack</title>
-        <meta
-          name="description"
-          content="Olá! Me chamo Marcos Gaius e sou desenvolvedor full-stack. Aqui você poderá conhecer tanto eu quanto meu trabalho melhor!"
-        />
+        <title>{t("meta_title")}</title>
+        <meta name="description" content={t("meta_description")!} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Marcos Gaius - Desenvolvedor FullStack" />
+        <meta property="og:title" content={t("og_meta_title")!} />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:description"
-          content="Olá! Me chamo Marcos Gaius e sou desenvolvedor full-stack. Aqui você poderá conhecer tanto eu quanto meu trabalho melhor!"
-        />
+        <meta property="og:description" content={t("og_meta_description")!} />
       </Head>
 
       <Header />
@@ -61,18 +57,15 @@ export default function Home() {
                 variants={fromRightAnimationVariant}
               >
                 <h2 className="text-3xl font-bold">
-                  Aprender é minha <span className="text-secondary-blue">paixão</span>
+                  <Trans i18nKey="about_me_title">
+                    Aprender é <span className="text-secondary-blue">paixão</span>
+                  </Trans>
                 </h2>
                 <div className="flex flex-col gap-6 text-lg opacity-80">
                   <Text weight="semibold">
-                    Minha máxima pessoal é fazer o <strong>melhor</strong> que posso ao que me proponho. Então espere muito esforço e
-                    dedicação nas minhas incumbências. Com isso, criação e estudo fazem parte da minha rotina, e na programação encontrei o{" "}
-                    <strong>balanço perfeito</strong>!
+                    <Trans i18nKey="about_me_content.first" />
                   </Text>
-                  <Text weight="semibold">
-                    Minha jornada com programação começou por volta dos meus 13 anos mexendo com plugins para Minecraft! A partir de 2020
-                    começei a dedicar maior parte do meu tempo na área.
-                  </Text>
+                  <Text weight="semibold">{t("about_me_content.second")}</Text>
                 </div>
               </motion.div>
               <motion.div
@@ -96,7 +89,7 @@ export default function Home() {
               className="flex flex-wrap justify-center text-center md:justify-start md:text-start text-3xl font-bold mt-20 drop-shadow-blue-sm"
               ref={typewriteRef}
             >
-              <span>Atualmente, sou desenvolvedor&nbsp;</span>
+              <span>{t("about_me_stack")}&nbsp;</span>
               <span className="text-secondary-blue">
                 {isIntersecting && <Typewriter onInit={(typewriter) => typewriter.changeDelay(70).typeString("Full-Stack").start()} />}
               </span>
@@ -117,12 +110,10 @@ export default function Home() {
                 <h2 className="text-3xl font-bold">👷 We are all gonna make it</h2>
                 <div className="flex flex-col gap-6 text-lg opacity-80">
                   <Text weight="semibold">
-                    Em 2017 conheci o Bitcoin, e com isso, nasceu meu grande <strong>apreço</strong> por todo o ecossistema de{" "}
-                    <strong>blockchains, web3 e relacionados.</strong>
+                    <Trans i18nKey="about_me_crypto.first" />
                   </Text>
                   <Text weight="semibold">
-                    Por volta de 2021, percebi a <strong>revolução</strong> que o novo paradigma da web3 irá trazer e, assim, passei a
-                    alinhar meu gosto pela programação com isso.
+                    <Trans i18nKey="about_me_crypto.second" />
                   </Text>
                 </div>
               </motion.div>
@@ -154,5 +145,3 @@ export default function Home() {
     </>
   );
 }
-
-//i18n - add atributo lang

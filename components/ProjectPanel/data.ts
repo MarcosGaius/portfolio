@@ -9,8 +9,10 @@ import spsImage from "../../public/images/sps_api.jpg";
 
 export const mainProject = {
   title: "🔥 colecionavel.digital",
-  description:
-    "A colecionavel.digital é um projeto em construção que fornece a criação de coleções de NFTs via pix com facilitação de integração no Instagram. Sou responsável pelo desenvolvimento da aplicação e do respectivo contrato inteligente. Mais informações, como Whitepaper e Roadmap, se encontram no link.",
+  description: {
+    pt: "A colecionavel.digital é um projeto em construção que fornece a criação de coleções de NFTs via pix com facilitação de integração no Instagram. Sou responsável pelo desenvolvimento da aplicação e do respectivo contrato inteligente. Mais informações, como Whitepaper e Roadmap, se encontram no link.",
+    en: "The colecionavel.digital is a project under development that provides the creation of NFT collections via PIX (Brazilian Payment Method) with facilitation of integration in Instagram. I am responsible for the development of the application and its smart contract. More information, such as Whitepaper and Roadmap, can be found at the link.",
+  },
   image: mainProjectImage,
   links: {
     github: "https://github.com/orgs/NFT-No-Code/repositories",

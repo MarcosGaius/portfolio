@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form/dist/types";
 
 interface ICustomInputProps {
@@ -10,6 +11,11 @@ interface ICustomInputProps {
 }
 
 export default function CustomInput({ label, placeholder, name, register, errors, isSubmitted }: ICustomInputProps) {
+  const { locale } = useRouter();
+  const correctMessage = locale === "en" ? "Correct field! ✅" : "Campo correto! ✅";
+  const labelMessage =
+    locale === "en" ? `Insert the ${label.toLocaleLowerCase()} bellow.` : `Insira o(a) ${label.toLocaleLowerCase()} abaixo.`;
+
   return (
     <div className="flex flex-col gap-0.5 w-full">
       <label htmlFor={name}>{label}</label>
@@ -18,9 +24,9 @@ export default function CustomInput({ label, placeholder, name, register, errors
           {errors[name] ? (
             <p className="text-red-500">{errors[name]?.message!.toString()} ❌</p>
           ) : isSubmitted ? (
-            <p className="text-green-600 text-opacity-60">Campo correto! ✅</p>
+            <p className="text-green-600 text-opacity-60">{correctMessage}</p>
           ) : (
-            <p className="text-black text-opacity-60">Insira o(a) {label.toLocaleLowerCase()} abaixo.</p>
+            <p className="text-black text-opacity-60">{labelMessage}</p>
           )}
         </div>
         <input

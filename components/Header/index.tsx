@@ -4,8 +4,18 @@ import { useCurrentHeight } from "../../hooks/useCurrentHeight";
 import { BiMenu } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import brazilFlag from "../../public/images/brazil.png";
+import usaFlag from "../../public/images/usa.png";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const { locale } = router;
+
   const BASE_HEADER_CLASS =
     "flex justify-between items-center px-4 md:px-10 lg:px-24 py-6 font-sans fixed w-screen z-50 transition-all duration-300";
 
@@ -88,7 +98,7 @@ export default function Header() {
                             transition={{ duration: 0.3, type: "tween" }}
                             variants={childrenAnimationVariants}
                           >
-                            Início
+                            {t("menu_home")}
                           </motion.a>
                         </Menu.Item>
                         <Menu.Item>
@@ -98,7 +108,7 @@ export default function Header() {
                             transition={{ duration: 0.3, type: "tween" }}
                             variants={childrenAnimationVariants}
                           >
-                            Sobre mim
+                            {t("menu_about")}
                           </motion.a>
                         </Menu.Item>
                         <Menu.Item>
@@ -108,7 +118,7 @@ export default function Header() {
                             transition={{ duration: 0.3, type: "tween" }}
                             variants={childrenAnimationVariants}
                           >
-                            Projetos
+                            {t("menu_projects")}
                           </motion.a>
                         </Menu.Item>
                         <Menu.Item>
@@ -118,9 +128,26 @@ export default function Header() {
                             transition={{ duration: 0.3, type: "tween" }}
                             variants={childrenAnimationVariants}
                           >
-                            Contato
+                            {t("menu_contact")}
                           </motion.a>
                         </Menu.Item>
+                        {locale === "pt" ? (
+                          <Menu.Item>
+                            <motion.div transition={{ duration: 0.3, type: "tween" }} variants={childrenAnimationVariants}>
+                              <Link href="/" locale="en">
+                                <Image src={usaFlag} width="20" height="20" alt="" />
+                              </Link>
+                            </motion.div>
+                          </Menu.Item>
+                        ) : (
+                          <Menu.Item>
+                            <motion.div transition={{ duration: 0.3, type: "tween" }} variants={childrenAnimationVariants}>
+                              <Link href="/" locale="pt">
+                                <Image src={brazilFlag} width="20" height="20" alt="" />
+                              </Link>
+                            </motion.div>
+                          </Menu.Item>
+                        )}
                       </nav>
                     </Menu.Items>
                   </motion.div>
@@ -144,22 +171,31 @@ export default function Header() {
       <p className="text-2xl font-oswald font-light">
         Marcos<span className="text-secondary-blue">Gaius</span>
       </p>
-      <nav className="flex space-x-6 text-base">
+      <nav className="flex space-x-6 text-base items-center">
         <a href="#" className="uppercase hover:text-secondary-blue">
-          Início
+          {t("menu_home")}
         </a>
         <a href="#about" className="uppercase hover:text-secondary-blue">
-          Sobre mim
+          {t("menu_about")}
         </a>
         <a href="#projects" className="uppercase hover:text-secondary-blue">
-          Projetos
+          {t("menu_projects")}
         </a>
         <a href="#contact" className="uppercase hover:text-secondary-blue">
-          Contato
+          {t("menu_contact")}
         </a>
+        {locale === "pt" ? (
+          <Link href="/" locale="en">
+            <Image src={usaFlag} width="20" height="20" alt="" />
+          </Link>
+        ) : (
+          <Link href="/" locale="pt">
+            <Image src={brazilFlag} width="20" height="20" alt="" />
+          </Link>
+        )}
       </nav>
       <a className="bg-accent-blue px-3 py-2 rounded-lg font-semibold hover:bg-secondary-blue transition-transform" href="#contact">
-        Vamos conversar
+        {t("menu_cta_contact")}
       </a>
     </header>
   );

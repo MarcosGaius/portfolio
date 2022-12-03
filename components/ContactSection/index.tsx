@@ -10,12 +10,15 @@ import { sendEmailService } from "../../services/api";
 import { AxiosError } from "axios";
 import { toast, UpdateOptions } from "react-toastify";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IContactSectionProps {
   id: string;
 }
 
 export default function ContactSection({ id }: IContactSectionProps) {
+  const { t } = useTranslation();
+
   const {
     handleSubmit,
     register,
@@ -34,7 +37,7 @@ export default function ContactSection({ id }: IContactSectionProps) {
 
     setIsRequesting(true);
 
-    const loadingToast = toast.loading("Enviando email...");
+    const loadingToast = toast.loading(t("toast_loading"));
     const emailRes = await sendEmailService(formattedData);
 
     setIsRequesting(false);
@@ -43,40 +46,54 @@ export default function ContactSection({ id }: IContactSectionProps) {
     if (emailRes instanceof AxiosError) {
       switch (emailRes.response?.status) {
         case 400:
-          toast.error("Verifique os campos e tente novamente");
+          toast.error(t("toast_error_400"));
           break;
         case 500:
-          toast.error("Erro no servidor");
+          toast.error(t("toast_error_500"));
           break;
         default:
-          toast.error("Erro desconhecido (servidor)");
+          toast.error(t("toast_error_sv"));
       }
       return;
     } else if (emailRes instanceof Error) {
       console.error(emailRes);
-      toast.error("Erro desconhecido");
+      toast.error(t("toast_error_cl"));
     }
 
-    toast.success("E-mail enviado com sucesso!");
+    toast.success(t("toast_success"));
     reset();
   };
 
   return (
     <div className="flex flex-col items-center gap-14 py-10" id={id}>
       <div className="flex flex-col items-center">
-        <h2 className="text-3xl text-blue-100 font-semibold text-center">Posso te ajudar?</h2>
+        <h2 className="text-3xl text-blue-100 font-semibold text-center">{t("contact_title")}</h2>
         <div>
-          <h3 className="text-5xl font-bold text-cyan-400 drop-shadow-cyan-sm text-center">Então, vamos conversar!</h3>
+          <h3 className="text-5xl font-bold text-cyan-400 drop-shadow-cyan-sm text-center">{t("contact_subtitle")}</h3>
           <div className="after:content-[''] flex w-full h-0.5 bg-white mt-2"></div>
         </div>
       </div>
       <form className="flex flex-col gap-4 w-full md:w-3/4 lg:w-1/2" onSubmit={handleSubmit(submitForm)}>
-        <CustomInput label="Nome" name="name" placeholder="Seu nome" register={register} errors={errors} isSubmitted={isSubmitted} />
-        <CustomInput label="E-mail" name="email" placeholder="Seu e-mail" register={register} errors={errors} isSubmitted={isSubmitted} />
+        <CustomInput
+          label={t("contact_name_field.label")}
+          name="name"
+          placeholder={t("contact_name_field.placeholder")}
+          register={register}
+          errors={errors}
+          isSubmitted={isSubmitted}
+        />
+        <CustomInput
+          label={t("contact_email_field.label")}
+          name="email"
+          placeholder={t("contact_email_field.placeholder")}
+          register={register}
+          errors={errors}
+          isSubmitted={isSubmitted}
+        />
         <CustomTextArea
-          label="Mensagem"
+          label={t("contact_message_field.label")}
           name="message"
-          placeholder="Sua mensagem"
+          placeholder={t("contact_message_field.placeholder")}
           register={register}
           errors={errors}
           isSubmitted={isSubmitted}
@@ -90,7 +107,7 @@ export default function ContactSection({ id }: IContactSectionProps) {
           }
           disabled={isRequesting ? true : false}
         >
-          Enviar mensagem
+          {t("contact_button")}
         </button>
       </form>
       <div className="flex flex-wrap justify-center gap-4 md:gap-10">
